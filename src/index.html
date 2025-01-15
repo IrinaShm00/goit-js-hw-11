@@ -5,20 +5,28 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vanilla App Template</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Image Search</title>
+
+  <!-- iziToast -->
+  <link rel="stylesheet" href="./css/iziToast.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+
+  <!-- SimpleLightbox -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplelightbox@2.1.6/dist/simple-lightbox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/simplelightbox@2.1.6/dist/simple-lightbox.min.js"></script>
+
+  <!-- JavaScript -->
+  <script src="./js/main.js"></script>
 </head>
 
 <body>
-
-
-  <main>
-
-  </main>
-
-
-
-  <script type="module" src="./main.js"></script>
+  <div class="container">
+    <form id="search-form">
+      <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+      <button type="submit">Search</button>
+    </form>
+    <div id="gallery" class="gallery"></div>
+  </div>
 </body>
 
 </html>
