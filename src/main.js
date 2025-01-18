@@ -9,11 +9,44 @@ import 'izitoast/dist/css/iziToast.min.css';
 // Custom CSS
 import './css/styles.css';
 
-import { fetchImages } from './js/pixabay-api.js'; // Импорт API-запросов
+import { fetchImages as pixabayFetchImages } from './js/pixabay-api.js'; // Импорт API-запросов
+import { displayImages } from './js/render-functions.js';
+
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 const searchForm = document.getElementById('search-form');
 const gallery = document.getElementById('gallery');
+const loader = document.getElementById('loader');
 
+// Функции для управления загрузчиком
+function showLoader() {
+  loader.style.display = 'block';
+}
+
+function hideLoader() {
+  loader.style.display = 'none';
+}
+
+// Обновленная функция fetchImages с управлением загрузчиком
+async function fetchImages(query) {
+  try {
+    showLoader();
+      const response = await pixabayFetchImages(query);
+      console.log('API Response:', response);  // Проверяем ответ API
+    return response; // Возвращаем результат
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    throw error; // Пробрасываем ошибку дальше
+  } finally {
+    hideLoader();
+  }
+}
+
+// Обработчик отправки формы
 searchForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   console.log('Form submitted');
@@ -27,14 +60,13 @@ searchForm.addEventListener('submit', async (event) => {
     return;
   }
 
-  // Очистка галлереи перед новым запросом
+  // Очистка галереи перед новым запросом
   gallery.innerHTML = '';
 
   try {
-    const images = await fetchImages(searchQuery);
+    const images = await fetchImages(searchQuery); 
     displayImages(images);
   } catch (error) {
-    console.error('Error fetching images:', error);
     iziToast.error({
       title: 'Error',
       message: 'Failed to fetch images.',
@@ -42,33 +74,4 @@ searchForm.addEventListener('submit', async (event) => {
   }
 });
 
-function displayImages(images) {
-  gallery.innerHTML = ''; // Очистка галереи перед добавлением новых изображений
-  if (images.hits.length === 0) {
-    iziToast.info({
-      title: 'Info',
-      message: 'Sorry, there are no images matching your search query. Please try again!',
-    });
-    return;
-  }
-
-  images.hits.forEach(image => {
-    const item = document.createElement('a');
-    item.href = image.largeImageURL;
-    item.classList.add('gallery-item');
-
-    const img = document.createElement('img');
-    img.src = image.webformatURL;
-    img.alt = image.tags;
-    img.classList.add('gallery-image');
-
-    item.appendChild(img);
-    gallery.appendChild(item);
-  });
-
-  // Подключаем библиотеку SimpleLightbox
-  new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-}
+// Функция для отображения изображений перенесла в рендер
