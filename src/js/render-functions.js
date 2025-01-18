@@ -13,6 +13,9 @@ export function displayImages(images, galleryElement) {
       (image) => `
     <a href="${image.largeImageURL}" class="gallery-item">
       <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-image" />
+       <div class="gallery-item">
+      <a href="${image.largeImageURL}">
+        <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-image" />
     </a>
   `
     )

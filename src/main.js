@@ -65,8 +65,9 @@ searchForm.addEventListener('submit', async (event) => {
 
   try {
     const images = await fetchImages(searchQuery); 
-    displayImages(images);
+    displayImages(images, gallery);
   } catch (error) {
+      console.log(error);
     iziToast.error({
       title: 'Error',
       message: 'Failed to fetch images.',
