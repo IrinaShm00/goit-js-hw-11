@@ -17,3 +17,42 @@
 @import url('./back-link.css');
 @import url('./footer.css');
 
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Автоматична сітка */
+  gap: 16px;
+  /* Відстань між елементами */
+  margin-top: 20px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  /* Вертикальне вирівнювання */
+  align-items: center;
+  /* Центрування */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-info {
+  padding: 10px;
+  background-color: #f9f9f9;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+}
+
+.image-info p {
+  margin: 5px 0;
+}

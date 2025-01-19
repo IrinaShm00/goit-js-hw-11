@@ -1,5 +1,6 @@
 export function displayImages(images, galleryElement) {
-  galleryElement.innerHTML = ''; // Очистка галереи перед добавлением новых изображений
+  galleryElement.innerHTML = ''; // Очищення галереї перед додаванням нових зображень
+
   if (images.hits.length === 0) {
     iziToast.info({
       title: 'Info',
@@ -11,19 +12,29 @@ export function displayImages(images, galleryElement) {
   const markup = images.hits
     .map(
       (image) => `
-    <a href="${image.largeImageURL}" class="gallery-item">
-      <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-image" />
-       <div class="gallery-item">
-      <a href="${image.largeImageURL}">
-        <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-image" />
-    </a>
-  `
+      <div class="gallery-item">
+        <a href="${image.largeImageURL}">
+          <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-image" />
+        </a>
+        <div class="image-info">
+        <p><strong>Tags:</strong> ${image.tags}</p>
+          <p>Likes: ${image.likes}</p>
+          <p>Views: ${image.views}</p>
+          <p>Comments: ${image.comments}</p>
+          <p>Downloads: ${image.downloads}</p>
+        </div>
+      </div>
+    `
     )
     .join('');
+
   galleryElement.insertAdjacentHTML('beforeend', markup);
-     setTimeout(() => {
+
+  // Оновлення lightbox
+  setTimeout(() => {
     lightbox.refresh();
   }, 0);
 }
+
 
  
