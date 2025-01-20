@@ -1,4 +1,4 @@
-export function displayImages(images, galleryElement) {
+export function displayImages(images, galleryElement, lightbox) {
   galleryElement.innerHTML = ''; // Очищення галереї перед додаванням нових зображень
 
   if (images.hits.length === 0) {

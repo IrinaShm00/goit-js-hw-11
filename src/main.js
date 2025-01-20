@@ -65,7 +65,7 @@ searchForm.addEventListener('submit', async (event) => {
 
   try {
     const images = await fetchImages(searchQuery); 
-      displayImages(images, gallery);
+      displayImages(images, gallery, lightbox);
       lightbox.refresh();
   } catch (error) {
       console.log(error);
